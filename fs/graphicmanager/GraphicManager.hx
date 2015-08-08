@@ -1,11 +1,14 @@
 package fs.graphicmanager;
 
+import aze.display.TileLayer;
 import flash.display.BitmapData;
 import flash.geom.Rectangle;
+import fs.screenmanager.Layer;
 import openfl.Assets;
 import flash.display.Bitmap;
 import flash.geom.Point;
 import openfl.Lib;
+import aze.display.SparrowTilesheet;
 
 class GraphicManager
 {
@@ -174,6 +177,23 @@ class GraphicManager
 		//It's always xml because it's the spritesheet data
 		data = Assets.getText(spritesPath + internalPath + name + "." + extension);
 		return data;
+	}
+	
+	public static function LoadTileLayer(name : String,order : Int = 0,internalPath : String = "") : Layer
+	{
+		var data : String;
+		var imagesSpriteheet : BitmapData;
+		var imagesTileLayer : SparrowTilesheet;
+		var tilelayer : Layer;
+	
+		imagesSpriteheet = LoadSpritesheet(name,"png",internalPath);
+		data = LoadSpritesheetData(name,"xml",internalPath);
+		imagesTileLayer = new SparrowTilesheet(imagesSpriteheet, data);
+			
+		tilelayer = new Layer(imagesTileLayer,order);
+		
+		
+		return tilelayer;
 	}
 	
 	public static function ParseObjectsData(path : String) : Map<String,flash.geom.Rectangle>
