@@ -1,9 +1,8 @@
-package fs.graphicmanager;
+package;
 
 import aze.display.TileLayer;
 import flash.display.BitmapData;
 import flash.geom.Rectangle;
-import fs.screenmanager.Layer;
 import openfl.Assets;
 import flash.display.Bitmap;
 import flash.geom.Point;
@@ -27,16 +26,20 @@ class GraphicManager
 	
 	private static var bitmapsData : Map<String,BitmapData>;
 	
+	private static var spritesheetsData : Map<String,Map<String,flash.geom.Rectangle>>;
+	
+	private static var backgroundsPath : String;
+	
 	private static var spritesPath : String;
 	
 	
-	public static function InitInstance(fixedWidth : Int,fixedHeight : Int,spritesPath : String): GraphicManager
+	public static function InitInstance(fixedWidth : Int,fixedHeight : Int,backgroundsPath : String,spritesPath : String): GraphicManager
 	{
 		if (instance == null)
-			instance = new GraphicManager(fixedWidth,fixedHeight,spritesPath);
+			instance = new GraphicManager(fixedWidth,fixedHeight,backgroundsPath,spritesPath);
 		
 		bitmapsData = new Map<String,BitmapData>();
-		
+		spritesheetsData = new Map<String,Map<String,flash.geom.Rectangle>>();
 		
 		return instance;
 	}
@@ -56,7 +59,7 @@ class GraphicManager
 	/*
 	 * Constructor
 	 */
-	private function new(fixedW : Int,fixedH : Int,path : String) 
+	private function new(fixedW : Int,fixedH : Int,backPath : String,sprtPath : String) 
 	{
 		fixedWidth = fixedW;
 		fixedHeight = fixedH;
@@ -64,7 +67,8 @@ class GraphicManager
 		//Getting device resolution
 		width= Lib.current.stage.stageWidth;
 		height = Lib.current.stage.stageHeight;
-		spritesPath = path;
+		backgroundsPath = backPath;
+		spritesPath = sprtPath;
 	}
 	
 	public static function GetWidth() : Int
@@ -85,6 +89,11 @@ class GraphicManager
 	public static function GetFixedHeight() : Int
 	{
 		return fixedHeight;
+	}
+	
+	public static function GetBackgroundsPath() : String
+	{
+		return backgroundsPath;
 	}
 	
 	public static function GetSpritesPath() : String
@@ -114,7 +123,7 @@ class GraphicManager
 			bitmapData = bitmapsData.get(path);
 		else
 		{
-			bitmapData = Assets.getBitmapData(path);
+			bitmapData = Assets.getBitmapData(path,false);
 			bitmapsData.set(path,bitmapData);
 		}
 
@@ -145,19 +154,15 @@ class GraphicManager
 	{
 		var data : Map<String,flash.geom.Rectangle>;
 		
-		/*if (SPRITESHEET_DATA == null)
-			SPRITESHEET_DATA = new Map<String,Map<String,flash.geom.Rectangle>>();
-		
-		if (SPRITESHEET_DATA.exists(path))
-			data = SPRITESHEET_DATA.get(path);
+		if (spritesheetsData.exists(path))
+			data = spritesheetsData.get(path);
 		else
 		{
 			data = ParseObjectsData(path);
-			SPRITESHEET_DATA.set(path, data);
-		}*/
+			spritesheetsData.set(path, data);
+		}
 		
-		return new Map<String,flash.geom.Rectangle>();
-		//return data;
+		return data;
 	}
 	
 	public static function LoadSpritesheet(name : String, extension : String, internalPath : String = "") : BitmapData
@@ -187,7 +192,7 @@ class GraphicManager
 		var tilelayer : Layer;
 	
 		imagesSpriteheet = LoadSpritesheet(name,"png",internalPath);
-		data = LoadSpritesheetData(name,"xml",internalPath);
+		data = LoadSpritesheetData(name, "xml", internalPath);
 		imagesTileLayer = new SparrowTilesheet(imagesSpriteheet, data);
 			
 		tilelayer = new Layer(imagesTileLayer,order);
