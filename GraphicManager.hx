@@ -123,7 +123,7 @@ class GraphicManager
 			bitmapData = bitmapsData.get(path);
 		else
 		{
-			bitmapData = Assets.getBitmapData(path);
+			bitmapData = Assets.getBitmapData(path,false);
 			bitmapsData.set(path,bitmapData);
 		}
 
