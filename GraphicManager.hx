@@ -65,10 +65,17 @@ class GraphicManager
 		fixedHeight = fixedH;
 		
 		//Getting device resolution
-		width= Lib.current.stage.stageWidth;
+		width = Lib.current.stage.stageWidth;
 		height = Lib.current.stage.stageHeight;
 		backgroundsPath = backPath;
 		spritesPath = sprtPath;
+	}
+	
+	public static function Resize() : Void
+	{
+		//Getting device resolution
+		width = Lib.current.stage.stageWidth;
+		height = Lib.current.stage.stageHeight;
 	}
 	
 	public static function GetWidth() : Int
@@ -357,5 +364,15 @@ class GraphicManager
 		
 		
 		return scale;
+	}
+	
+	public static function GetXScale() : Float
+	{
+		return width/fixedWidth;
+	}
+	
+	public static function GetYScale() : Float
+	{
+		return height/fixedHeight;
 	}
 }
