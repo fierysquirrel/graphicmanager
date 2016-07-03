@@ -350,6 +350,16 @@ class GraphicManager
 		return scale;
 	}
 	
+	public static function GetWidthScale() : Float
+	{
+		return  1 + (width - fixedWidth) / fixedWidth;
+	}
+	
+	public static function GetHeightScale() : Float
+	{
+		return  1 + (height - fixedHeight) / fixedHeight;
+	}
+	
 	/*
 	 * Fixed float to Screen: Generate relative values, using fixed screen width and height.
 	 * */
