@@ -78,6 +78,12 @@ class GraphicManager
 		height = Lib.current.stage.stageHeight;
 	}
 	
+	public static function ScreenSizeChanged() : Bool
+	{
+		return (width != Lib.current.stage.stageWidth) || (height != Lib.current.stage.stageHeight);
+	}
+	
+	
 	public static function GetWidth() : Int
 	{
 		return width;
