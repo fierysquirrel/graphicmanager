@@ -1,13 +1,12 @@
 package;
 
-import aze.display.TileLayer;
 import flash.display.BitmapData;
 import flash.geom.Rectangle;
 import openfl.Assets;
 import flash.display.Bitmap;
 import flash.geom.Point;
 import openfl.Lib;
-import aze.display.SparrowTilesheet;
+import openfl.display.SparrowTileset;
 
 class GraphicManager
 {
@@ -201,15 +200,14 @@ class GraphicManager
 	{
 		var data : String;
 		var imagesSpriteheet : BitmapData;
-		var imagesTileLayer : SparrowTilesheet;
+		var imagesTileLayer : SparrowTileset;
 		var tilelayer : Layer;
 	
 		imagesSpriteheet = LoadSpritesheet(name,"png",internalPath);
 		data = LoadSpritesheetData(name, "xml", internalPath);
-		imagesTileLayer = new SparrowTilesheet(imagesSpriteheet, data);
+		imagesTileLayer = new SparrowTileset(imagesSpriteheet, data);
 			
-		tilelayer = new Layer(imagesTileLayer,order);
-		
+		tilelayer = new Layer(imagesTileLayer,imagesTileLayer.bitmapData.width,imagesTileLayer.bitmapData.height,order);
 		
 		return tilelayer;
 	}

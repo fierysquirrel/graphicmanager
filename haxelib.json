@@ -10,7 +10,6 @@
   "dependencies": 
   {
     "openfl":"",
-	"actuate":"",
-	"tilelayer":""
+	"open-atlas":""
   }
 }
