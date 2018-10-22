@@ -1,12 +1,12 @@
 {
-  "name": "screenmanager",
-  "url": "",
+  "name": "Graphic Manager",
+  "url": "http://fierysquirrel.com/",
   "license": "MIT",
-  "tags": ["openfl","screenmanager"],
-  "description": "This is the core of the screen system. All screens are managed by this class.",
-  "version": "0.1",
-  "releasenote": "First Release",
-  "contributors": ["henrykun"],
+  "tags": ["openfl","graphics","scale","adaptation","screen"],
+  "description": "Handles all the graphics related matters in the game. Resizing, events, adaptation, etc.",
+  "version": "1.1",
+  "releasenote": "Upgraded library to new OpenFL and Haxe",
+  "contributors": ["fierysquirrel"],
   "dependencies": 
   {
     "openfl":"",
